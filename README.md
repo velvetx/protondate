@@ -5,6 +5,8 @@
 
 <h4><i>Based on pixelbubble's ProtOSINT idea.</i></h4>
 
+<h4><i>Thx GrabCON CTF 2021.</i></h4>
+
 ---
 
 Before usage:
