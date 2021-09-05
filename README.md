@@ -1,4 +1,4 @@
-<h2>PROTONDATE</h2>
+<h2>protondate</h2>
 
 
 <h4><i>Lightweight OSINT tool that determines the time and date of creation Protonmail account.</i></h4>
