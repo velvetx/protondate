@@ -25,4 +25,3 @@ or
 
 `protondate example@protonmail.com`
 
----
