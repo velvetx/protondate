@@ -1,23 +1,37 @@
 import sys
-from src import logic
+import requests
+import re
+from datetime import datetime
 
 
-class Program:
+class ProtonDate:
     def __init__(self):
         self.target_email = sys.argv[1]
-        self.result = None
-        self.execution()
+        self.api_url = 'https://api.protonmail.ch/pks/lookup?op=index&search='
+        self.req_body = None
+        self.timestamp = None
+        self.time, self.date = None, None
+        self.execute()
 
-    def get_result(self):
-        self.result = logic.Logic(self.target_email).execution()
+    def get_request_body(self):
+        self.req_body = requests.get(self.api_url + self.target_email).text
 
-    def get_output(self):
-        print(f'Email: {self.target_email}\nTime of creation: {self.result[0]}\nDate of creation: {self.result[1]}')
+    def find_timestamp(self):
+        self.timestamp = int(re.findall(r'\d{10}', self.req_body)[0])
 
-    def execution(self):
+    def convert_timestamp(self):
+        self.time = datetime.fromtimestamp(self.timestamp).time()
+        self.date = datetime.fromtimestamp(self.timestamp).date().strftime("%d-%m-%Y")
+
+    def print_output(self):
+        print(f'Email: {self.target_email}\nTime of creation: {self.time}\nDate of creation: {self.date}')
+
+    def execute(self):
         try:
-            self.get_result()
-            self.get_output()
+            self.get_request_body()
+            self.find_timestamp()
+            self.convert_timestamp()
+            self.print_output()
         except IndexError:
             print('Bad email.')
         except KeyboardInterrupt:
@@ -26,4 +40,4 @@ class Program:
 
 
 if __name__ == '__main__':
-    Program()
+    ProtonDate()
