@@ -23,15 +23,12 @@ class ProtonDate:
         self.time = datetime.fromtimestamp(self.timestamp).time()
         self.date = datetime.fromtimestamp(self.timestamp).date().strftime("%d-%m-%Y")
 
-    def print_output(self):
-        print(f'Email: {self.target_email}\nTime of creation: {self.time}\nDate of creation: {self.date}')
-
     def execute(self):
         try:
             self.get_request_body()
             self.find_timestamp()
             self.convert_timestamp()
-            self.print_output()
+            print(f'Email: {self.target_email}\nTime of creation: {self.time}\nDate of creation: {self.date}')
         except IndexError:
             print('Bad email.')
         except KeyboardInterrupt:
